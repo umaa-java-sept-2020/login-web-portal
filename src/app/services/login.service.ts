@@ -1,15 +1,15 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, tap } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService{
-  private baseUrl= 'http://localhost:8085/';
+  private baseUrl= 'http://localhost:8085';
   constructor(private http : HttpClient){}
 
-  login(login: Object):Observable<Object>{
-      return this.http.post(`${this.baseUrl}/open-login/authenticate`,login)
+  login(loginCred: Object):Observable<Object>{
+      return this.http.post(`${this.baseUrl}/open-login/authenticate`,loginCred,{responseType: 'text'})
   }
 }

@@ -11,7 +11,7 @@ export class ResetPasswordComponent implements OnInit {
   hide1: boolean = false;
   hide2: boolean = true;
   loginModel: Login = new Login();
-  // confirmPassword : string = "";
+  confirmPassword : string = "";
 
   constructor() { }
   ngOnInit(): void {

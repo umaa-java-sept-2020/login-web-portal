@@ -1,6 +1,7 @@
+import { UserStatus } from "./userStatus.model";
+
 export class Login{
    'username':string;
    'password':string;
-   'confirmPassword':string ;
-   'resetPasswordToken':string;
+    'status': UserStatus;
 }
