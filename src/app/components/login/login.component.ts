@@ -10,35 +10,40 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
- loginModel :Login = new Login();
-  constructor( private loginService : LoginService,private router :Router) {}
+  loginModel: Login = new Login();
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
   }
-//   httpOptions = {
-//     headers: new HttpHeaders({
-//       'Content-Type':  'application/json'
-//     }),
-//     observe: 'response'
-// };
-
-  login()
-  {
-    this.loginService.login(this.loginModel).subscribe((data : any  ) => {
+  login(userName: String) {
+    this.loginService.login(this.loginModel).subscribe((data: any) => {
       console.log(data);
-      this.loginModel = new Login();
-      // console.log("response: ", data.headers("resetPasswordToken"));
-      // localStorage.setItem('token',data.headers("resetPasswordToken"));
-      // const token = localStorage.getItem('token');
-      // var token = data.headers.get('resetPasswordToken');
-      console.log(data.headers.has('HttpHeaders'));
-      var token  = JSON.stringify( data.headers.get('resetPasswordToken'));
-      console.log("Token : ",token);
+      if(!data.includes("bearer")){
+        console.log("print");
 
-      // this.router.navigate(["/reset-password"])
-    },error  =>
-      console.error(error.error.message+" "+error.error.details)
+        let token = "";
+       token = data;
+       sessionStorage.setItem('token', token);
+      this.router.navigate(["/reset-password", userName, token])
+
+      }
+      if(data.includes("bearer")){
+        let bearerToken = "";
+         bearerToken = data.replace('bearer','');
+        //  console.log(localStorage.getItem('token'),"+");
+        //  console.log(localStorage.getItem('bearerToken'),"++");
+
+      sessionStorage.setItem('bearerToken', bearerToken);
+      // console.log(localStorage.getItem('token'),"-");
+      //    console.log(localStorage.getItem('bearerToken'),"--");
+      document.location.href = 'https://stackoverflow.com';
+
+      }
+
+    }, error =>
+      console.error(error.error.message + " " + error.error.details)
     );
+
   }
 
 }

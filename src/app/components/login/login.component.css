@@ -5,7 +5,7 @@ input, .card{
     border: 1px solid rgb(85,20,180) !important;
 }
 
-.card-header{
+.card-header,.btn{
     background-color: rgb(85,20,180) !important;
 }
 

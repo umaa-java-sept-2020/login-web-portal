@@ -10,7 +10,8 @@ export class LoginService{
   constructor(private http : HttpClient){}
 
   login(loginCred: Object):Observable<Object>{
-      return this.http.post(`${this.baseUrl}/open-login/authenticate`,loginCred , {observe: 'response',responseType:'text' });
+      // return this.http.post(`${this.baseUrl}/open-login/authenticate`,loginCred , {observe: 'response' });
+      return this.http.post(`${this.baseUrl}/open-login/authenticate`,loginCred , {responseType:'text' });
 
 }
 }
