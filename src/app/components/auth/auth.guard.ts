@@ -14,25 +14,25 @@ export class AuthGuard implements CanActivate{
 
 
       const token = sessionStorage.getItem('token');
-      const bearerToken = sessionStorage.getItem('bearerToken');
+      const bearerToken:any = sessionStorage.getItem('bearerToken');
     console.log("bearerToken",bearerToken);
 
     console.log(token,"token");
 
     if((token!= null) || (bearerToken!=null)){
       const helper = new JwtHelperService();
-      // if(helper.isTokenExpired(bearerToken)){
-      //   this.router.navigate(['/login']);
-      //   console.warn("Session expired! Please login again");
-      //   return false;
+      if(helper.isTokenExpired(bearerToken)){
+        this.router.navigate(['/login']);
+        console.warn("Session expired! Please login again");
+        return false;
 
-      // }
-      // else
+      }
+      else
       return true;
     }
     else{
       console.warn("Please login to continue...");
-      this.router.navigate(['/auth'])
+      this.router.navigate(['/login'])
 
     }
     // if()

@@ -18,25 +18,24 @@ export class LoginComponent implements OnInit {
   login(userName: String) {
     this.loginService.login(this.loginModel).subscribe((data: any) => {
       console.log(data);
-      if(!data.includes("bearer")){
-        console.log("print");
-
+      if (!data.includes("bearer")) {  // data = "0b8785f3-c567-4631-9640-5b431309a094"
         let token = "";
-       token = data;
-       sessionStorage.setItem('token', token);
-      this.router.navigate(["/reset-password", userName, token])
+        token = data;
+        sessionStorage.setItem('token', token);
+        this.router.navigate(["/reset-password", userName, token])
 
       }
-      if(data.includes("bearer")){
+      if (data.startsWith("bearer")) { //returns data= "bearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4MTIzNDciLCJleHAiOjE2NDM4OTY0MjksImlhdCI6MTY0Mzg3ODQyOX0.ZiTkd7f_XkKm4T9ChQCkyxqCI1y4wNvANYXql9WTtWiNORGm-XSrWvxeD4xGbwYYN0SmsXhINFkogRQSrGUHowbearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4MTIzNDciLCJleHAiOjE2NDM4OTY0MjksImlhdCI6MTY0Mzg3ODQyOX0.ZiTkd7f_XkKm4T9ChQCkyxqCI1y4wNvANYXql9WTtWiNORGm-XSrWvxeD4xGbwYYN0SmsXhINFkogRQSrGUHow"
         let bearerToken = "";
-         bearerToken = data.replace('bearer','');
-        //  console.log(localStorage.getItem('token'),"+");
-        //  console.log(localStorage.getItem('bearerToken'),"++");
+        bearerToken = data.replace('bearer', '');
+        console.log(bearerToken);   //"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4MTIzNDciLCJleHAiOjE2NDM4OTY0MjksImlhdCI6MTY0Mzg3ODQyOX0.ZiTkd7f_XkKm4T9ChQCkyxqCI1y4wNvANYXql9WTtWiNORGm-XSrWvxeD4xGbwYYN0SmsXhINFkogRQSrGUHowbearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4MTIzNDciLCJleHAiOjE2NDM4OTY0MjksImlhdCI6MTY0Mzg3ODQyOX0.ZiTkd7f_XkKm4T9ChQCkyxqCI1y4wNvANYXql9WTtWiNORGm-XSrWvxeD4xGbwYYN0SmsXhINFkogRQSrGUHow"
 
-      sessionStorage.setItem('bearerToken', bearerToken);
-      // console.log(localStorage.getItem('token'),"-");
-      //    console.log(localStorage.getItem('bearerToken'),"--");
-      document.location.href = 'https://stackoverflow.com';
+        sessionStorage.setItem('bearerToken', bearerToken);
+        document.location.href = 'http://localhost:49371?token='+bearerToken;  //hiring event url
+        // this.router.navigate(["/dashboard"])
+        // this.router.navigate(["http://localhost:49400"]);
+
+
 
       }
 
