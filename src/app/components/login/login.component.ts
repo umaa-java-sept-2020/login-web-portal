@@ -1,9 +1,11 @@
+
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Login } from 'src/app/models/Login';
 import { LoginService } from 'src/app/services/login.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -42,7 +44,6 @@ export class LoginComponent implements OnInit {
     }, error =>
       console.error(error.error.message + " " + error.error.details)
     );
-
   }
 
 }
