@@ -6,37 +6,43 @@ import { Injectable } from "@angular/core";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate{
-  constructor(private router :Router, private loginService : LoginService){}
+export class AuthGuard implements CanActivate {
+  constructor(private router: Router, private loginService: LoginService) { }
+  token :any= '';
   canActivate(route: ActivatedRouteSnapshot,
-      state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-      console.log("token");
-      const token = sessionStorage.getItem('token');
-      const bearerToken:any = sessionStorage.getItem('BearerToken');
-      console.log("BearerToken",bearerToken);
+    state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    console.log("token");
+    this.token = sessionStorage.getItem('token');
+    // const bearerToken: any = sessionStorage.getItem('BearerToken');
+    // console.log("BearerToken", bearerToken);
 
-      console.log(token,"token");
+    console.log(this.token, "token");
 
-    if((token!= null) || (bearerToken!=null))
-    {
+    if (this.token != null) {
       const helper = new JwtHelperService();
       console.log(helper);
-      
-      if(helper.isTokenExpired(bearerToken))
-      {
-        this.router.navigate(['/login']);
-        console.warn("Session expired! Please login again");
-        return false;
+      if (this.token.startsWith("Bearer ")) {
+        if (helper.isTokenExpired(this.token)) {
+          this.router.navigate(['/login']);
+          console.warn("Session expired! Please login again");
+          return false;
+        }
+        else
+          return true;
       }
+
       else
         return true;
     }
+
     else{
-      console.warn("Please login to continue...");
-      this.router.navigate(['/login'])
-    }
-    // if()
-  return true;
+  console.warn("Please login to continue...");
+  this.router.navigate(['/login'])
+}
+return true;
+}
+getToken(){
+return this.token;
 }
 
   }

@@ -24,23 +24,22 @@ export class LoginComponent implements OnInit {
     this.isFetching = true;
     this.loginService.login(this.loginModel).subscribe((data: any) => {
       console.log(data);
-      if (!data.includes("Bearer ")) {  // data = "0b8785f3-c567-4631-9640-5b431309a094"
+      if (!data.startsWith("Bearer ")) {
         let token = "";
         token = data;
         sessionStorage.setItem('token', token);
-        this.router.navigate(["/reset-password", userName, token])
+        this.router.navigate(["/reset-password", userName])
 
       }
-      if (data.startsWith("Bearer ")) { //returns data= "bearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4MTIzNDciLCJleHAiOjE2NDM4OTY0MjksImlhdCI6MTY0Mzg3ODQyOX0.ZiTkd7f_XkKm4T9ChQCkyxqCI1y4wNvANYXql9WTtWiNORGm-XSrWvxeD4xGbwYYN0SmsXhINFkogRQSrGUHowbearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4MTIzNDciLCJleHAiOjE2NDM4OTY0MjksImlhdCI6MTY0Mzg3ODQyOX0.ZiTkd7f_XkKm4T9ChQCkyxqCI1y4wNvANYXql9WTtWiNORGm-XSrWvxeD4xGbwYYN0SmsXhINFkogRQSrGUHow"
+      if (data.startsWith("Bearer ")) {
         let bearerToken = "";
         bearerToken = data.replace('Bearer ', '');
-        console.log(bearerToken);   //"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4MTIzNDciLCJleHAiOjE2NDM4OTY0MjksImlhdCI6MTY0Mzg3ODQyOX0.ZiTkd7f_XkKm4T9ChQCkyxqCI1y4wNvANYXql9WTtWiNORGm-XSrWvxeD4xGbwYYN0SmsXhINFkogRQSrGUHowbearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4MTIzNDciLCJleHAiOjE2NDM4OTY0MjksImlhdCI6MTY0Mzg3ODQyOX0.ZiTkd7f_XkKm4T9ChQCkyxqCI1y4wNvANYXql9WTtWiNORGm-XSrWvxeD4xGbwYYN0SmsXhINFkogRQSrGUHow"
+        console.log(bearerToken);
 
-        sessionStorage.setItem('BearerToken', bearerToken);
-        //document.location.href = 'http://localhost:4200?token='+bearerToken;  //hiring event url
-         this.router.navigate(["/dashboard", bearerToken]);
+        sessionStorage.setItem('token', bearerToken);
+         this.router.navigate(["/dashboard"]);
         // this.router.navigate(["http://localhost:49400"]);
-        
+
       }
       this.isFetching = false;
 

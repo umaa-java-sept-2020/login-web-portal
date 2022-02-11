@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,8 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router:Router,private route:ActivatedRoute) { }
-  token!: string;
+  constructor(private router:Router,private route:ActivatedRoute,private authService : AuthGuard) { }
+  token : any;
   ngOnInit(): void {
     console.log(this.route.snapshot.params['userName']);
 
@@ -24,9 +25,13 @@ export class DashboardComponent implements OnInit {
   }
 
   redirectTo(){
-    this.token = this.route.snapshot.params['token'];
+    this.token  = this.authService.getToken();
+    // this.token = this.route.snapshot.params['token'];
     console.log(this.token);
     document.location.href = 'http://localhost:4200?token='+this.token;
-    
+
+  }
+  addUser(){
+    this.router.navigate(["/create-user"])
   }
 }
