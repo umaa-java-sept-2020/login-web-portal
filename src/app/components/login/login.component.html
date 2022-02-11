@@ -1,3 +1,7 @@
+<div class="container text-center">
+  <img src="../assets/log-in.png" alt="login-logo" style="margin-top: 5vh; height: 100px;">
+  <h4 class="text-center p-4 text-muted" >Sign-in to HIRING-EVENTS v2.0</h4>
+</div>
 <div class="container shadow-lg p-1" style="max-width: 35vw;">
   <div class="card" style="background-color: rgb(243, 246, 250); ">
     <div class="card-header text-center text-white"
@@ -30,6 +34,11 @@
           </div>
         </form>
 
+        <p *ngIf="isFetching && !error">Loading...</p>
+        <div class="alert alert-danger mt-2" *ngIf="error">
+          <h3>An Error Occurred</h3>
+          <p>{{error}}</p>
+        </div>
 
     </div>
   </div>

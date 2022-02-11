@@ -9,31 +9,31 @@ import { Injectable } from "@angular/core";
 export class AuthGuard implements CanActivate{
   constructor(private router :Router, private loginService : LoginService){}
   canActivate(route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    console.log("token");
-
-
+      state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+      console.log("token");
       const token = sessionStorage.getItem('token');
-      const bearerToken:any = sessionStorage.getItem('bearerToken');
-    console.log("bearerToken",bearerToken);
+      const bearerToken:any = sessionStorage.getItem('BearerToken');
+      console.log("BearerToken",bearerToken);
 
-    console.log(token,"token");
+      console.log(token,"token");
 
-    if((token!= null) || (bearerToken!=null)){
+    if((token!= null) || (bearerToken!=null))
+    {
       const helper = new JwtHelperService();
-      if(helper.isTokenExpired(bearerToken)){
+      console.log(helper);
+      
+      if(helper.isTokenExpired(bearerToken))
+      {
         this.router.navigate(['/login']);
         console.warn("Session expired! Please login again");
         return false;
-
       }
       else
-      return true;
+        return true;
     }
     else{
       console.warn("Please login to continue...");
       this.router.navigate(['/login'])
-
     }
     // if()
   return true;

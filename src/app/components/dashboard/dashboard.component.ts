@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   constructor(private router:Router,private route:ActivatedRoute) { }
-
+  token!: string;
   ngOnInit(): void {
     console.log(this.route.snapshot.params['userName']);
 
@@ -21,5 +21,12 @@ export class DashboardComponent implements OnInit {
     localStorage.removeItem('bearerToken');
     this.router.navigate(["/login"])
 
+  }
+
+  redirectTo(){
+    this.token = this.route.snapshot.params['token'];
+    console.log(this.token);
+    document.location.href = 'http://localhost:4200?token='+this.token;
+    
   }
 }
