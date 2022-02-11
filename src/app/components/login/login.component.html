@@ -1,37 +1,45 @@
+<div class="container text-center">
+  <img src="../assets/log-in.png" alt="login-logo" style="margin-top: 5vh; height: 100px;">
+  <h4 class="text-center p-4 text-muted" >Sign-in to HIRING-EVENTS v2.0</h4>
+</div>
 <div class="container shadow-lg p-1" style="max-width: 35vw;">
-    <div class="card" style="background-color: rgb(243, 246, 250); ">
-        <div class="card-header text-center text-white"
-            style="font-family:'Times New Roman', Times, serif; font-weight: 700;">
-            USER LOGIN PORTAL
-        </div>
-
-        <div class="card-body mt-3">
-            <form>
-                <div class="form-group m-1">
-                    <div class="input-group mb-4 " id="username">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1"><img src="../../assets/user.png" alt=""
-                                    style="height: 30px;"> </span>
-                        </div>
-                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter username">
-                    </div>
-
-                </div>
-                <div class="form-group m-1">
-                    <div class="input-group mb-4 " id="password">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1"><img src="../../assets/key.png" alt=""
-                                    style="height: 30px;"> </span>
-                        </div>
-                        <input type="password" class="form-control" id="formGroupExampleInput2"
-                            placeholder="Enter Password">
-                    </div>
-                </div>
-                <div class="text-center mt-4">
-                    <a routerLink="/reset-password"><button class="btn btn-secondary">Sign in</button></a>
-                </div>
-            </form>
-
-        </div>
+  <div class="card" style="background-color: rgb(243, 246, 250); ">
+    <div class="card-header text-center text-white"
+      style="font-family:'Times New Roman', Times, serif; font-weight: 700;">
+      USER LOGIN PORTAL
     </div>
+      <div class="card-body mt-3">
+        <form #f="ngForm">
+          <div class="form-group m-1">
+            <div class="input-group mb-4 " id="username">
+
+              <span class="input-group-text" id="basic-addon1"><img src="../../assets/user.png" alt=""
+                  style="height: 30px;"> </span>
+              <input type="text" class="form-control" id="formGroupExampleInput" ngModel #b1
+                placeholder="Enter username" name="username" [(ngModel)]="loginModel.username" required>
+            </div>
+
+          </div>
+          <div class="form-group m-1">
+            <div class="input-group mb-4 " id="password">
+              <span class="input-group-text" id="basic-addon1"><img src="../../assets/key.png" alt=""
+                  style="height: 30px;"> </span>
+              <input type="password" class="form-control" id="formGroupExampleInput2" ngModel #b2 name="password"
+                placeholder="Enter Password" [(ngModel)]="loginModel.password" required>
+            </div>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-sm mt-1 text-white" type="submit" type="button" (click)="login(loginModel.username)"
+              [disabled]="!f.valid">Login</button>
+          </div>
+        </form>
+
+        <p *ngIf="isFetching && !error">Loading...</p>
+        <div class="alert alert-danger mt-2" *ngIf="error">
+          <h3>An Error Occurred</h3>
+          <p>{{error}}</p>
+        </div>
+
+    </div>
+  </div>
 </div>

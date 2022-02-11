@@ -1,8 +1,14 @@
+
+input.ng-invalid.ng-touched{
+  border: 1px solid red !important;
+}
+
 input, .card{
     border: 1px solid rgb(85,20,180) !important;
 }
 
-.card-header{
+
+.card-header,.btn{
     background-color: rgb(85,20,180) !important;
 }
 
@@ -16,3 +22,4 @@ input, .card{
 .p-1 {
     padding: 0rem!important;
 }
+

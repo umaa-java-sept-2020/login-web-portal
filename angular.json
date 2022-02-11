@@ -34,7 +34,10 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
 
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -76,7 +79,8 @@
               "browserTarget": "login-web-portal:build:production"
             },
             "development": {
-              "browserTarget": "login-web-portal:build:development"
+              "browserTarget": "login-web-portal:build:development",
+              "port" : 4300
             }
           },
           "defaultConfiguration": "development"
